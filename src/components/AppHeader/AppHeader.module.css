@@ -24,12 +24,24 @@
   list-style: none;
 }
 
-.item {
+.link {
+  text-decoration: none;
   display: flex;
   align-items: center;
-  text-decoration: none
 }
 
-.none {
-  text-decoration: none;
+.linkText {
+  margin-left: 4px;
+}
+
+.rightList {
+  margin-left: auto;
+}
+
+.primaryLink {
+  color: #ffffff;
+}
+
+.secondaryLink {
+  color: #cccccc;
 }
