@@ -13,16 +13,6 @@ const Card = (props) => {
     }
   };
 
-  const handleRemoveClick = () => {
-    if (count > 0) {
-      const updatedCount = count - 1;
-      setCount(updatedCount);
-      if (props.onClick) {
-        props.onClick({ ...props, count: updatedCount });
-      }
-    }
-  };
-
   // Generate a unique key for each card
   const cardKey = `${props._id}-${props.count || 0}`;
 

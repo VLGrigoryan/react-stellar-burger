@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { data } from "../../utils/data";
 import {
   ConstructorElement,
@@ -7,7 +7,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import currency from "../../images/currency-icon.svg";
 import BCStyle from "./BurgerConstructor.module.css";
-import Card from "../Card/Card";
 
 const BurgerConstructor = ({
   constructorItems,
