@@ -1,6 +1,6 @@
 Stellar Burger - Учебный проект
 
-Ссылка на сайт: Stellar Burger
+Ссылка на сайт: https://vlgrigoryan.github.io/react-stellar-burger/
 
 в проекте Stellar Burger реализованы следующие компоненты:
 
