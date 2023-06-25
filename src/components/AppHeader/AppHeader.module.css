@@ -24,7 +24,7 @@
   list-style: none;
 }
 
-.button {
+.link {
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -37,6 +37,6 @@
   margin-left: auto;
 }
 
-.secondaryButton{
+.secondaryLinknpmrn{
   color: #cccccc;
 }
