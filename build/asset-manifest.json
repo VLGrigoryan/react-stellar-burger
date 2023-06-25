@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-stellar-burger/static/css/main.f140e3c9.css",
-    "main.js": "/react-stellar-burger/static/js/main.e6464260.js",
+    "main.css": "/react-stellar-burger/static/css/main.9b464117.css",
+    "main.js": "/react-stellar-burger/static/js/main.d4a5eadd.js",
     "static/js/787.438bf4e7.chunk.js": "/react-stellar-burger/static/js/787.438bf4e7.chunk.js",
     "static/media/JetBrainsMono-Bold.woff": "/react-stellar-burger/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
     "static/media/JetBrainsMono-Regular.woff": "/react-stellar-burger/static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
@@ -9,14 +9,14 @@
     "static/media/JetBrainsMono-Regular.woff2": "/react-stellar-burger/static/media/JetBrainsMono-Regular.b60380891bcf2eb241ca.woff2",
     "static/media/iceland.woff": "/react-stellar-burger/static/media/iceland.77ad7fc2baffd9305538.woff",
     "static/media/iceland.woff2": "/react-stellar-burger/static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
-    "static/media/currency-icon.svg": "/react-stellar-burger/static/media/currency-icon.3747a2dc22f1df44245a1ad48194e811.svg",
+    "static/media/currency-icon.svg": "/react-stellar-burger/static/media/currency-icon.ea85763613811221cf4d4fbd0efaa62a.svg",
     "index.html": "/react-stellar-burger/index.html",
-    "main.f140e3c9.css.map": "/react-stellar-burger/static/css/main.f140e3c9.css.map",
-    "main.e6464260.js.map": "/react-stellar-burger/static/js/main.e6464260.js.map",
+    "main.9b464117.css.map": "/react-stellar-burger/static/css/main.9b464117.css.map",
+    "main.d4a5eadd.js.map": "/react-stellar-burger/static/js/main.d4a5eadd.js.map",
     "787.438bf4e7.chunk.js.map": "/react-stellar-burger/static/js/787.438bf4e7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f140e3c9.css",
-    "static/js/main.e6464260.js"
+    "static/css/main.9b464117.css",
+    "static/js/main.d4a5eadd.js"
   ]
 }
