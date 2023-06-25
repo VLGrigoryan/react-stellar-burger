@@ -24,20 +24,19 @@
   list-style: none;
 }
 
-.link {
+.button {
   text-decoration: none;
   display: flex;
   align-items: center;
+  border: none;
+  background: transparent;
+  color: #ffffff;
 }
 
 .rightList {
   margin-left: auto;
 }
 
-.primaryLink {
-  color: #ffffff;
-}
-
-.secondaryLink {
+.secondaryButton{
   color: #cccccc;
 }

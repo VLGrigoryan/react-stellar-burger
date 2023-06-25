@@ -4,7 +4,7 @@ import { data } from '../../utils/data';
 import BIStyle from './BurgerIngredients.module.css';
 import Card from '../Card/Card';
 
-const BurgerIngredients = ({ onAddToConstructor }) => {
+const BurgerIngredients = () => {
   const [currentTab, setCurrentTab] = useState('bun');
 
   const onTabClick = (tab) => {
@@ -13,10 +13,6 @@ const BurgerIngredients = ({ onAddToConstructor }) => {
     if (ref) {
       ref.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleItemClick = (item) => {
-    onAddToConstructor({ ...item, count: (item.count || 0) + 1 });
   };
 
   return (
@@ -51,7 +47,6 @@ const BurgerIngredients = ({ onAddToConstructor }) => {
                       price={item.price}
                       count={item.count}
                       name={item.name}
-                      onClick={() => handleItemClick(item)}
                     />
                   );
                 }
