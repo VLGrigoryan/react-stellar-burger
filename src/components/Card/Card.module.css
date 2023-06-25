@@ -4,6 +4,7 @@
   align-items: center;
   max-width: 272px;
   cursor: pointer;
+  text-align: center;
 }
 
 .card-container {
@@ -11,4 +12,8 @@
   align-items: center;
   position: relative;
   justify-content: center;
+}
+
+.price {
+  display: flex;
 }

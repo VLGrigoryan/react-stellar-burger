@@ -12,11 +12,11 @@ const Card = (props) => {
         <img src={props.image} alt={props.name} />
         {props.count > 0 && <Counter count={props.count} size="default" />}
       </div>
-      <div style={{ display: 'flex' }} className="mt-1 mb-1">
+      <div className={`${CStyle.price} mt-1 mb-1`}>
         <p className="text text_type_digits-default mr-2">{props.price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p style={{ minHeight: '48px', textAlign: 'center' }} className="text text_type_main-default">
+      <p className="text text_type_main-default">
         {props.name}
       </p>
     </li>
