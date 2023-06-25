@@ -49,15 +49,8 @@ const BurgerConstructor = ({
         </div>
       </div>
       <div className={`${BCStyle["section-footer"]} + mt-10 mr-6`}>
-        <p
-          style={{
-            display: "flex",
-          }}
-          className="text text_type_digits-medium"
-        >
-          {610}
-          <img className="ml-2" alt="валюта" src={currency} />
-        </p>
+        <p className="text text_type_digits-medium">610</p>
+        <img className="ml-2 mr-10" alt="валюта" src={currency} />
         <Button htmlType="submit" type="primary" size="large">
           Оформить заказ
         </Button>
