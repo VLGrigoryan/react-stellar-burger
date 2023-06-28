@@ -1,18 +1,31 @@
-import React, { useState } from "react";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab";
-import { data } from "../../utils/data";
-import BIStyle from "./BurgerIngredients.module.css";
-import Card from "../Card/Card";
+import React, { useState } from 'react';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import BIStyle from './BurgerIngredients.module.css';
+import Card from '../Card/Card';
+import Modal from '../Modal/Modal';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { ingredientPropType } from '../../utils/prop-types';
 
-const BurgerIngredients = () => {
-  const [currentTab, setCurrentTab] = useState("bun");
+function BurgerIngredients({ data }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [details, setDetails] = useState(null);
+  const [current, setCurrent] = useState('bun');
 
   const onTabClick = (tab) => {
-    setCurrentTab(tab);
+    setCurrent(tab);
     const ref = document.getElementById(tab);
     if (ref) {
-      ref.scrollIntoView({ behavior: "smooth" });
+      ref.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const openModal = (item) => {
+    setDetails(item);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -21,53 +34,67 @@ const BurgerIngredients = () => {
       <div className={BIStyle.tabs}>
         <Tab
           value="bun"
-          active={currentTab === "bun"}
-          onClick={() => onTabClick("bun")}
+          active={current === 'bun'}
+          onClick={() => onTabClick('bun')}
         >
           Булки
         </Tab>
         <Tab
           value="sauce"
-          active={currentTab === "sauce"}
-          onClick={() => onTabClick("sauce")}
+          active={current === 'sauce'}
+          onClick={() => onTabClick('sauce')}
         >
           Соусы
         </Tab>
         <Tab
           value="main"
-          active={currentTab === "main"}
-          onClick={() => onTabClick("main")}
+          active={current === 'main'}
+          onClick={() => onTabClick('main')}
         >
           Начинки
         </Tab>
       </div>
-      <div className={BIStyle.container + " pl-4 pr-4"}>
-        {["bun", "sauce", "main"].map((tab) => (
+      <div className={`${BIStyle.container} pl-4 pr-4`}>
+        {['bun', 'sauce', 'main'].map((tab) => (
           <div key={tab} id={tab}>
             <h2 className="text text_type_main-medium mt-10 mb-6">
-              {tab === "bun" ? "Булки" : tab === "sauce" ? "Соусы" : "Начинка"}
+              {tab === 'bun'
+                ? 'Булки'
+                : tab === 'sauce'
+                ? 'Соусы'
+                : 'Начинка'}
             </h2>
-            <ul className={`${BIStyle["card-list"]} pl-4 pr-4`}>
-              {data.map((item) => {
-                if (item.type === tab) {
-                  return (
-                    <Card
-                      key={item._id}
-                      image={item.image}
-                      price={item.price}
-                      count={item.count}
-                      name={item.name}
-                    />
-                  );
-                }
-                return null;
-              })}
+            <ul className={`${BIStyle['card-list']} pl-4 pr-4`}>
+              {data
+                .filter((item) => item.type === tab)
+                .map((item) => (
+                  <Card
+                    key={item._id}
+                    image={item.image}
+                    price={item.price}
+                    count={item.count}
+                    name={item.name}
+                    onClick={() => openModal(item)}
+                  />
+                ))}
             </ul>
           </div>
         ))}
       </div>
+      {isOpen && (
+        <Modal onClose={closeModal} title="Детали ингредиента">
+          <IngredientDetails data={details} />
+        </Modal>
+      )}
     </section>
   );
+}
+
+BurgerIngredients.propTypes = {
+  data: ingredientPropType,
 };
+
+
+BurgerIngredients.propTypes = ingredientPropType;
 
 export default BurgerIngredients;

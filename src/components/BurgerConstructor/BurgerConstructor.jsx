@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { data } from "../../utils/data";
 import {
   ConstructorElement,
@@ -7,10 +7,22 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import currency from "../../images/currency-icon.svg";
 import BCStyle from "./BurgerConstructor.module.css";
+import OrderDetails from "../OrderDetails/OrderDetails";
+import Modal from "../Modal/Modal";
 
 const BurgerConstructor = ({
   selectedItems = [7, 2, 8, 11, 11, 1, 3, 4, 10, 12, 13],
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOrderClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <section className={`${BCStyle.section} mt-25`}>
       <div className={`${BCStyle["section-container"]}`}>
@@ -51,10 +63,20 @@ const BurgerConstructor = ({
       <div className={`${BCStyle["section-footer"]} + mt-10 mr-6`}>
         <p className="text text_type_digits-medium">610</p>
         <img className="ml-2 mr-10" alt="валюта" src={currency} />
-        <Button htmlType="submit" type="primary" size="large">
+        <Button
+          htmlType="submit"
+          type="primary"
+          size="large"
+          onClick={handleOrderClick}
+        >
           Оформить заказ
         </Button>
       </div>
+      {isModalOpen && (
+        <Modal onClose={handleCloseModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };
