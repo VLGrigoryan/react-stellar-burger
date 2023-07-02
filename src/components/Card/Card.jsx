@@ -35,7 +35,7 @@ const Card = ({ data, onClick }) => {
 Card.propTypes = {
   onClick: PropTypes.func.isRequired,
   count: PropTypes.number,
-  data: PropTypes.shape(ingredientPropType).isRequired,
+  data: PropTypes.shape(ingredientPropType.isRequired).isRequired,
 };
 
 export default Card;
