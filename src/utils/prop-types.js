@@ -1,24 +1,14 @@
 import PropTypes from 'prop-types';
 
 export const ingredientPropType = {
-  count: PropTypes.number,
-  _id: PropTypes.string,
-  image: PropTypes.string,
-  price: PropTypes.number,
-  name: PropTypes.string,
-  onClick: PropTypes.func,
+  _id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  proteins: PropTypes.number.isRequired,
+  fat: PropTypes.number.isRequired,
+  carbohydrates: PropTypes.number.isRequired,
+  calories: PropTypes.number.isRequired,
 };
 
-export const ModalPropTypes = {
-  title: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-};
 
-export const IngredientDetailsprotoTypes = {
-  data: ingredientPropType.isRequired
-};
-
-export const ModalOverlayPropTypes = {
-  onClick: PropTypes.func.isRequired
-};

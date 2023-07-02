@@ -1,24 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
-import { ModalPropTypes } from '../../utils/prop-types.js';
-import MStyle from './Modal.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React from "react";
+import ReactDOM from "react-dom";
+import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import PropTypes from "prop-types";
+import MStyle from "./Modal.module.css";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const modalsContainer = document.querySelector('#modals');
+const modalsContainer = document.querySelector("#modals");
 
 function Modal({ title, onClose, children }) {
   React.useEffect(() => {
     const handleEscKeydown = (e) => {
-      if (e.code === 'Escape') {
+      if (e.code === "Escape") {
         onClose();
       }
     };
 
-    document.addEventListener('keydown', handleEscKeydown);
+    document.addEventListener("keydown", handleEscKeydown);
 
     return () => {
-      document.removeEventListener('keydown', handleEscKeydown);
+      document.removeEventListener("keydown", handleEscKeydown);
     };
   }, [onClose]);
 
@@ -39,6 +39,10 @@ function Modal({ title, onClose, children }) {
   );
 }
 
-Modal.propTypes = ModalPropTypes;
+Modal.propTypes = {
+  title: PropTypes.string,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+};
 
 export default Modal;

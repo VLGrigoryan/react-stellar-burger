@@ -1,28 +1,41 @@
-import React from 'react';
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import CStyle from './Card.module.css';
-import { ingredientPropType } from '../../utils/prop-types';
+import React from "react";
+import {
+  CurrencyIcon,
+  Counter,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import CStyle from "./Card.module.css";
+import { ingredientPropType } from "../../utils/prop-types";
+import PropTypes from "prop-types";
 
-const Card = (props) => {
-  const cardKey = `${props._id}-${props.count || 0}`;
+const Card = ({ data, onClick }) => {
+  const cardKey = `${data._id}-${data.count || 0}`;
+
+  const handleClick = () => {
+    onClick(data); // Pass the ingredient data to the onClick handler
+  };
 
   return (
-    <li className={CStyle.card} key={cardKey}>
-      <div className={`${CStyle['card-container']} pl-4 pr-4`} onClick={props.onClick}>
-        <img src={props.image} alt={props.name} />
-        {props.count > 0 && <Counter count={props.count} size="default" />}
+    <li className={CStyle.card} key={cardKey} onClick={handleClick}>
+      <div
+        className={`${CStyle["card-container"]} pl-4 pr-4`}
+        onClick={data.onClick}
+      >
+        <img src={data.image} alt={data.name} />
+        {data.count > 0 && <Counter count={data.count} size="default" />}
       </div>
       <div className={`${CStyle.price} mt-1 mb-1`}>
-        <p className="text text_type_digits-default mr-2">{props.price}</p>
+        <p className="text text_type_digits-default mr-2">{data.price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className="text text_type_main-default">
-        {props.name}
-      </p>
+      <p className="text text_type_main-default">{data.name}</p>
     </li>
   );
 };
 
-Card.propTypes = ingredientPropType;
+Card.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  count: PropTypes.number,
+  data: PropTypes.shape(ingredientPropType).isRequired,
+};
 
 export default Card;
