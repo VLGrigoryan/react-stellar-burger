@@ -6,6 +6,7 @@ import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
+import { BurgerContext } from "../BurgerContext/BurgerContext";
 
 function BurgerIngredients({ data }) {
   const [isOpen, setIsOpen] = useState(false);

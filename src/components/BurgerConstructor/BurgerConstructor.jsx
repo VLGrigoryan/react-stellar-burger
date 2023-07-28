@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { data } from "../../utils/data";
 import {
   ConstructorElement,
   Button,
@@ -11,10 +10,11 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 
 const BurgerConstructor = ({
+  data,
   selectedItems = [7, 2, 8, 11, 11, 1, 3, 4, 10, 12, 13],
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  console.log(data);
   const handleOrderClick = () => {
     setIsModalOpen(true);
   };
@@ -22,6 +22,11 @@ const BurgerConstructor = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  if (!data || !Array.isArray(data) || data.length === 0) {
+    return <p>No data available.</p>;
+  }
+
+  const firstItem = data[0];
 
   return (
     <section className={`${BCStyle.section} mt-25`}>
@@ -36,16 +41,16 @@ const BurgerConstructor = ({
           />
         </div>
         <ul className={BCStyle.list}>
-          {selectedItems.map((itemId, index) => (
+          {selectedItems.map((item, index) => (
             <li
               className={`${BCStyle.item} mr-4`}
-              key={`selected-${itemId}-${index}`}
+              key={`selected-${item}-${index}`}
             >
               <DragIcon />
               <ConstructorElement
-                text={data[itemId].name}
-                price={data[itemId].price}
-                thumbnail={data[itemId].image}
+                text={data[item].name}
+                price={data[item].price}
+                thumbnail={data[item].image}
               />
             </li>
           ))}
