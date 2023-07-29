@@ -8,25 +8,42 @@ import currency from "../../images/currency-icon.svg";
 import BCStyle from "./BurgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
+import { baseUrl } from "../../utils/api";
+import {postOrder} from '../../utils/api'
 
-const BurgerConstructor = ({
-  data,
-  selectedItems = [7, 2, 8, 11, 11, 1, 3, 4, 10, 12, 13],
-}) => {
+const BurgerConstructor = ({ data, selectedItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(data);
-  const handleOrderClick = () => {
-    setIsModalOpen(true);
-  };
+  const [orderNumber, setOrderNumber] = useState(null);
+  const bun = data.filter((item) => item.type === "bun")[0];
 
+  const getTotalCost = () => {
+    if (!selectedItems) {
+      return 0;
+    }
+    const ingredientCost = selectedItems.reduce((acc, itemIndex) => {
+      return acc + data[itemIndex].price;
+    }, 0);
+
+    return 2 * bun.price + ingredientCost;
+  };
+  
+  const handleOrderClick = async () => {
+    try {
+      const number = await postOrder(data, selectedItems);
+      setOrderNumber(number);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setOrderNumber(null);
   };
+
   if (!data || !Array.isArray(data) || data.length === 0) {
     return <p>No data available.</p>;
   }
-
-  const firstItem = data[0];
 
   return (
     <section className={`${BCStyle.section} mt-25`}>
@@ -35,22 +52,22 @@ const BurgerConstructor = ({
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={data[0].name + " (верх)"}
-            price={data[0].price}
-            thumbnail={data[0].image}
+            text={bun.name + " (верх)"}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
         <ul className={BCStyle.list}>
-          {selectedItems.map((item, index) => (
+          {selectedItems.map((itemIndex, index) => (
             <li
               className={`${BCStyle.item} mr-4`}
-              key={`selected-${item}-${index}`}
+              key={`selected-${data[itemIndex]._id}-${index}`}
             >
               <DragIcon />
               <ConstructorElement
-                text={data[item].name}
-                price={data[item].price}
-                thumbnail={data[item].image}
+                text={data[itemIndex].name}
+                price={data[itemIndex].price}
+                thumbnail={data[itemIndex].image}
               />
             </li>
           ))}
@@ -59,14 +76,14 @@ const BurgerConstructor = ({
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={data[0].name + " (низ)"}
-            price={data[0].price}
-            thumbnail={data[0].image}
+            text={bun.name + " (низ)"}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
       </div>
       <div className={`${BCStyle["section-footer"]} + mt-10 mr-6`}>
-        <p className="text text_type_digits-medium">610</p>
+        <p className="text text_type_digits-medium">{getTotalCost()}</p>
         <img className="ml-2 mr-10" alt="валюта" src={currency} />
         <Button
           htmlType="submit"
@@ -77,9 +94,9 @@ const BurgerConstructor = ({
           Оформить заказ
         </Button>
       </div>
-      {isModalOpen && (
+      {isModalOpen && orderNumber && (
         <Modal onClose={handleCloseModal}>
-          <OrderDetails />
+          <OrderDetails number={orderNumber} />
         </Modal>
       )}
     </section>

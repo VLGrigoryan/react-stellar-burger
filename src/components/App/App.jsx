@@ -23,7 +23,7 @@ function App() {
 
   return (
     <>
-      <BurgerContext.Provider value={data}>
+      <BurgerContext.Provider value={{ data }}>
         <AppHeader />
         <main className={AppStyle.content}>
           <BurgerIngredients data={data} />

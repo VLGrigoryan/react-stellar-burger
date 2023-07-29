@@ -21,6 +21,7 @@ function BurgerIngredients({ data }) {
     }
   };
 
+  
   const openModal = (item) => {
     setDetails(item);
     setIsOpen(true);
