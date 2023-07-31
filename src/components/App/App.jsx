@@ -22,7 +22,6 @@ function App() {
   }, []);
 
   return (
-    <>
       <BurgerContext.Provider value={{ data }}>
         <AppHeader />
         <main className={AppStyle.content}>
@@ -33,7 +32,6 @@ function App() {
           />
         </main>
       </BurgerContext.Provider>
-    </>
   );
 }
 
