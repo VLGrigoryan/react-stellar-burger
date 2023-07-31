@@ -8,7 +8,7 @@ import currency from "../../images/currency-icon.svg";
 import BCStyle from "./BurgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import { postOrder } from "../../utils/api";
+import { request } from "../../utils/api";
 import { useModal } from "../../hooks/useModal";
 import { BurgerContext } from "../contexts/BurgerContext";
 
@@ -20,7 +20,6 @@ const BurgerConstructor = () => {
 
   const bun = data.filter((item) => item.type === "bun")[0];
 
-  console.log(data);
   const getTotalCost = () => {
     if (!selectedItems) {
       return 0;
@@ -32,14 +31,20 @@ const BurgerConstructor = () => {
     return 2 * bun.price + ingredientCost;
   };
 
-  const handleOrderClick = async () => {
-    try {
-      const number = await postOrder(data, selectedItems);
-      setOrderNumber(number);
-      openModal();
-    } catch (error) {
-      console.error(error.message);
-    }
+  const handleOrderClick = () => {
+    const ingredientIds = selectedItems.map((itemIndex) => data[itemIndex]._id);
+    request("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ingredients: ingredientIds }),
+    })
+      .then((res) => {
+        setOrderNumber(res.order.number);
+        openModal();
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleCloseModal = () => {

@@ -3,22 +3,16 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import AppStyle from "./App.module.css";
-import { fetchIngredients } from "../../utils/api";
+import { request } from "../../utils/api";
 import { BurgerContext } from "../contexts/BurgerContext";
 
 function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const getIngredients = async () => {
-      try {
-        const fetchedData = await fetchIngredients();
-        setData(fetchedData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getIngredients();
+    return request('/api/ingredients')
+    .then((res) => setData(res.data))
+    .catch((err) => console.log(err));
   }, []);
 
   return (
