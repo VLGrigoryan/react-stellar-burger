@@ -8,14 +8,13 @@ import currency from "../../images/currency-icon.svg";
 import BCStyle from "./BurgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import { baseUrl } from "../../utils/api";
 import {postOrder} from '../../utils/api'
 
 const BurgerConstructor = ({ data, selectedItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [orderNumber, setOrderNumber] = useState(null);
   const bun = data.filter((item) => item.type === "bun")[0];
-
+console.log(data)
   const getTotalCost = () => {
     if (!selectedItems) {
       return 0;

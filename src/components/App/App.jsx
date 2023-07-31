@@ -4,7 +4,7 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import AppStyle from "./App.module.css";
 import { fetchIngredients } from "../../utils/api";
-import { BurgerContext } from "../BurgerContext/BurgerContext";
+import { BurgerContext } from "../contexts/BurgerContext";
 
 function App() {
   const [data, setData] = useState([]);
@@ -29,7 +29,7 @@ function App() {
           <BurgerIngredients data={data} />
           <BurgerConstructor
             data={data}
-            selectedItems={[7, 2, 8, 11, 11, 1, 3, 4, 10, 12, 13]}
+            selectedItems={[8, 5, 11, 10, 10, 1, 2, 6, 12, 13, 14]}
           />
         </main>
       </BurgerContext.Provider>
