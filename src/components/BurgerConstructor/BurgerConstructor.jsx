@@ -9,11 +9,15 @@ import BCStyle from "./BurgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 import {postOrder} from '../../utils/api'
+import { useModal } from "../../hooks/useModal";
+
 
 const BurgerConstructor = ({ data, selectedItems }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [orderNumber, setOrderNumber] = useState(null);
+  const { isModalOpen, openModal, closeModal } = useModal();
+
   const bun = data.filter((item) => item.type === "bun")[0];
+
 console.log(data)
   const getTotalCost = () => {
     if (!selectedItems) {
@@ -30,13 +34,13 @@ console.log(data)
     try {
       const number = await postOrder(data, selectedItems);
       setOrderNumber(number);
-      setIsModalOpen(true);
+      openModal();
     } catch (error) {
       console.error(error.message);
     }
   };
   const handleCloseModal = () => {
-    setIsModalOpen(false);
+    closeModal(); // Corrected - Call closeModal from useModal hook to close the modal
     setOrderNumber(null);
   };
 
