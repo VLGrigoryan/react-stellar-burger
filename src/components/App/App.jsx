@@ -22,16 +22,13 @@ function App() {
   }, []);
 
   return (
-      <BurgerContext.Provider value={{ data }}>
-        <AppHeader />
-        <main className={AppStyle.content}>
-          <BurgerIngredients data={data} />
-          <BurgerConstructor
-            data={data}
-            selectedItems={[8, 5, 11, 10, 10, 1, 2, 6, 12, 13, 14]}
-          />
-        </main>
-      </BurgerContext.Provider>
+    <BurgerContext.Provider value={{ data }}>
+      <AppHeader />
+      <main className={AppStyle.content}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
+    </BurgerContext.Provider>
   );
 }
 

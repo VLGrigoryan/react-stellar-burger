@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BIStyle from "./BurgerIngredients.module.css";
 import Card from "../Card/Card";
@@ -6,13 +6,14 @@ import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
-// import { BurgerContext } from "../contexts/BurgerContext";
+import { BurgerContext } from "../contexts/BurgerContext";
 import { useModal } from "../../hooks/useModal";
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients() {
   const [details, setDetails] = useState(null);
   const [current, setCurrent] = useState("bun");
   const { isModalOpen, openModal, closeModal } = useModal();
+  const { data } = useContext(BurgerContext);
 
   const onTabClick = (tab) => {
     setCurrent(tab);
@@ -21,7 +22,7 @@ function BurgerIngredients({ data }) {
       ref.scrollIntoView({ behavior: "smooth" });
     }
   };
-  
+
   const handleCardClick = (item) => {
     setDetails(item);
     openModal();
@@ -63,7 +64,11 @@ function BurgerIngredients({ data }) {
               {data
                 .filter((item) => item.type === tab)
                 .map((item) => (
-                  <Card key={item._id} data={item} onClick={() => handleCardClick(item)} />
+                  <Card
+                    key={item._id}
+                    data={item}
+                    onClick={() => handleCardClick(item)}
+                  />
                 ))}
             </ul>
           </div>

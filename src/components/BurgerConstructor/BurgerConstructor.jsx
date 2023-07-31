@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   ConstructorElement,
   Button,
@@ -8,17 +8,19 @@ import currency from "../../images/currency-icon.svg";
 import BCStyle from "./BurgerConstructor.module.css";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import {postOrder} from '../../utils/api'
+import { postOrder } from "../../utils/api";
 import { useModal } from "../../hooks/useModal";
+import { BurgerContext } from "../contexts/BurgerContext";
 
-
-const BurgerConstructor = ({ data, selectedItems }) => {
+const BurgerConstructor = () => {
   const [orderNumber, setOrderNumber] = useState(null);
   const { isModalOpen, openModal, closeModal } = useModal();
+  const { data, selectedItems = [8, 5, 11, 10, 10, 1, 2, 6, 12, 13, 14] } =
+    useContext(BurgerContext);
 
   const bun = data.filter((item) => item.type === "bun")[0];
 
-console.log(data)
+  console.log(data);
   const getTotalCost = () => {
     if (!selectedItems) {
       return 0;
@@ -29,7 +31,7 @@ console.log(data)
 
     return 2 * bun.price + ingredientCost;
   };
-  
+
   const handleOrderClick = async () => {
     try {
       const number = await postOrder(data, selectedItems);
@@ -39,8 +41,9 @@ console.log(data)
       console.error(error.message);
     }
   };
+
   const handleCloseModal = () => {
-    closeModal(); // Corrected - Call closeModal from useModal hook to close the modal
+    closeModal();
     setOrderNumber(null);
   };
 

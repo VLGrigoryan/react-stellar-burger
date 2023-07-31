@@ -11,7 +11,7 @@ const Card = ({ data, onClick }) => {
   const cardKey = `${data._id}-${data.count || 0}`;
 
   const handleClick = () => {
-    onClick(data); // Pass the ingredient data to the onClick handler
+    onClick(data);
   };
 
   return (
