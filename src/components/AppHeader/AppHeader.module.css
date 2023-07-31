@@ -1,0 +1,42 @@
+.header {
+  background-color: #1C1C21;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: calc(50% - 290px/2);
+  top: calc(50% - 50px/2);
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+}
+
+.rightList {
+  margin-left: auto;
+}
+
+.secondaryLinknpmrn{
+  color: #cccccc;
+}
