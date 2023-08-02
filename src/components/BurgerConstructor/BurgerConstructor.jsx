@@ -10,7 +10,7 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 import { request } from "../../utils/api";
 import { useModal } from "../../hooks/useModal";
-import { BurgerContext } from "../contexts/BurgerContext";
+import { BurgerContext } from "../../contexts/BurgerContext";
 
 const BurgerConstructor = () => {
   const [orderNumber, setOrderNumber] = useState(null);

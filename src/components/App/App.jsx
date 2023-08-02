@@ -4,7 +4,7 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import AppStyle from "./App.module.css";
 import { request } from "../../utils/api";
-import { BurgerContext } from "../contexts/BurgerContext";
+import { BurgerContext } from "../../contexts/BurgerContext";
 
 function App() {
   const [data, setData] = useState([]);
