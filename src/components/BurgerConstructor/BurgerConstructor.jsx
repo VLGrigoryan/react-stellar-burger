@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {
   ConstructorElement,
   Button,
@@ -37,8 +37,7 @@ const BurgerConstructor = () => {
       isHover: monitor.isOver(),
     }),
   });
-
-  const getTotalCost = () => {
+  const totalCost = useMemo(() => {
     let initialPrice = 0;
     if (card && card.length > 0) {
       initialPrice += card
@@ -49,7 +48,9 @@ const BurgerConstructor = () => {
       initialPrice += bun.price * 2;
     }
     return initialPrice;
-  };
+  }, [card, bun]);
+
+
   const handleOrderClick = () => {
     const ingredientIds = card.map((ingredient) => ingredient._id);
     dispatch(fetchOrder(ingredientIds));
@@ -100,7 +101,7 @@ const BurgerConstructor = () => {
           )}
         </div>
         <div className={`${BCStyle["section-footer"]} + mt-10 mr-6`}>
-          <p className="text text_type_digits-medium">{getTotalCost()}</p>
+          <p className="text text_type_digits-medium">{totalCost}</p>
           <img className="ml-2 mr-10" alt="валюта" src={currency} />
           <Button
             htmlType="submit"
