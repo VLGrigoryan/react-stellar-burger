@@ -3,6 +3,8 @@
   max-height: 912px;
   display: flex;
   flex-direction: column;
+  min-width: 590px;
+
 }
 
 .section-container {
@@ -20,7 +22,7 @@
   list-style: none;
   overflow-y: scroll;
   scrollbar-color: #8585AD #2F2F37;
-  ;
+  min-height: 50px;
 }
 
 .list::-webkit-scrollbar {
@@ -41,7 +43,7 @@
   column-gap: 8px;
 }
 
-.section-footer{
+.section-footer {
   display: flex;
   justify-content: flex-end;
   align-items: center;

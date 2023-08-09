@@ -2,15 +2,17 @@ import React from "react";
 import ODStyle from "./OrderDetails.module.css";
 import done from "../../images/done.svg";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-function OrderDetails(props) {
+function OrderDetails() {
+  const {orderNumber} = useSelector(state => state.order)
 
   return (
     <div className={ODStyle.container}>
       <h3
         className={ODStyle.orderId + " text text_type_digits-large mt-4 mb-8"}
       >
-        {props.number}
+        {orderNumber}
       </h3>
       <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
       <img src={done} alt="галочка" />

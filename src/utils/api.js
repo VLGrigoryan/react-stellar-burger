@@ -10,3 +10,7 @@ export function checkResponse(res) {
 export function request(endpoint, options) {
   return fetch(`${baseUrl}${endpoint}`, options).then(checkResponse);
 }
+
+// export function getIngredients (endpoint, options) {
+//   return fetch(`${baseUrl}${endpoint}`, options).then(checkResponse);
+// }

@@ -2,8 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import IDStyle from "./IngredientDetails.module.css";
 import { ingredientPropType } from "../../utils/prop-types";
+import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ data }) => {
+const IngredientDetails = () => {
+  const { data } = useSelector((state) => state.ingredientDetails);
   return (
     <div className={`${IDStyle.container} mr-25 ml-25`}>
       <figure className={`${IDStyle["image-container"]}`}>
@@ -53,7 +55,7 @@ const IngredientDetails = ({ data }) => {
 };
 
 IngredientDetails.propTypes = {
-  data: PropTypes.shape(ingredientPropType.isRequired).isRequired,
+  data: PropTypes.shape(ingredientPropType.isRequired),
 };
 
 export default IngredientDetails;
