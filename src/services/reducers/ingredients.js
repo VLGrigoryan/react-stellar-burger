@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { request } from "../../utils/api";
+import { getIngredients } from "../../utils/api";
 
 const initialState = {
   data: [],
@@ -31,11 +31,10 @@ export const { fetchIngredientsStart, fetchIngredientsSuccess, fetchIngredientsE
 export const fetchIngredients = () => async (dispatch) => {
   try {
     dispatch(fetchIngredientsStart());
-    const res = await request("/api/ingredients");
+    const res = await getIngredients();
     dispatch(fetchIngredientsSuccess(res.data));
   } catch (error) {
     dispatch(fetchIngredientsError(error.message));
   }
 };
-
 export default ingredientsSlice.reducer;

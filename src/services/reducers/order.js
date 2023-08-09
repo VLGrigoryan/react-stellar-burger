@@ -1,16 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { request } from "../../utils/api";
+import { createOrder } from "../../utils/api";
 
 export const fetchOrder = createAsyncThunk(
   "order/fetchOrder",
   async (ingredientIds) => {
-    const response = await request("/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ingredients: ingredientIds }),
-    });
+    const response = await createOrder(ingredientIds);
     return response.order.number;
   }
 );
