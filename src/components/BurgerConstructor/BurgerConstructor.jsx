@@ -38,8 +38,6 @@ const BurgerConstructor = () => {
     }),
   });
 
-  const border = isHover ? "1px solid #4C4CFF" : "1px solid transparent";
-
   const getTotalCost = () => {
     let initialPrice = 0;
     if (card && card.length > 0) {
@@ -66,9 +64,8 @@ const BurgerConstructor = () => {
 
   return (
     <section
-      className={`${BCStyle.section} mt-25`}
+      className={`${BCStyle.section} mt-25 ${isHover ? BCStyle.borderHoverColor : ''}`}
       ref={dropRef}
-      style={{ border }}
     >
       <div className={`${BCStyle["section-container"]}`}>
         <div className={`${BCStyle.item} mb-4 ml-8`}>

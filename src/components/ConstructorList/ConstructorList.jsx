@@ -10,7 +10,6 @@ export const ConstructorList = ({ card, index }) => {
   const dispatch = useDispatch();
   const handleRemoveCard = () => dispatch(removeIngredient(card.uuid));
 
-
   const ref = useRef();
 
   const [, dropTarget] = useDrop({
@@ -50,12 +49,10 @@ export const ConstructorList = ({ card, index }) => {
     }),
   });
 
-  const opacity = dragTarget.isDragging ? 0.3 : 1;
-
   dragTarget(dropTarget(ref));
 
   return (
-    <div ref={ref} style={{ opacity }} className={`${CLStyle.item} mr-4`}>
+    <div ref={ref} className={`${CLStyle.item} ${dragTarget.isDragging ? CLStyle.dragging : ""}`}>
       <DragIcon type="primary" />
       <ConstructorElement
         type={card.type}
