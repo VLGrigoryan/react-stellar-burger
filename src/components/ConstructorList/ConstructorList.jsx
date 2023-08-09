@@ -8,13 +8,13 @@ import { removeIngredient, reorderIngredients } from "../../services/reducers/co
 
 export const ConstructorList = ({ card, index }) => {
   const dispatch = useDispatch();
+  const handleRemoveCard = () => dispatch(removeIngredient(card.uuid));
 
-  const removeCard = () => dispatch(removeIngredient(card));
 
   const ref = useRef();
 
   const [, dropTarget] = useDrop({
-    accept: "ingredient",
+    accept: "constructorList",
     hover(item, monitor) {
       if (!ref.current) {
         return;
@@ -43,7 +43,7 @@ export const ConstructorList = ({ card, index }) => {
   });
 
   const [, dragTarget] = useDrag({
-    type: "ingredient",
+    type: "constructorList",
     item: { index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -62,7 +62,7 @@ export const ConstructorList = ({ card, index }) => {
         text={card.name}
         price={card.price}
         thumbnail={card.image_mobile}
-        handleClose={removeCard}
+        handleClose={handleRemoveCard}
       />
     </div>
   );

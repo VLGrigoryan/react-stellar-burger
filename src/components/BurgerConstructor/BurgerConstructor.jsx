@@ -14,7 +14,6 @@ import {
   clearOrderNumber,
   selectOrderNumber,
 } from "../../services/reducers/order";
-
 import { useDrop } from "react-dnd";
 import {
   addIngredient,
@@ -66,7 +65,11 @@ const BurgerConstructor = () => {
   };
 
   return (
-    <section className={`${BCStyle.section} mt-25`} ref={dropRef} style={{ border }}>
+    <section
+      className={`${BCStyle.section} mt-25`}
+      ref={dropRef}
+      style={{ border }}
+    >
       <div className={`${BCStyle["section-container"]}`}>
         <div className={`${BCStyle.item} mb-4 ml-8`}>
           {bun && (

@@ -21,10 +21,11 @@ export const constructorSlice = createSlice({
       }
     },
     removeIngredient: (state, action) => {
+      const uuidToRemove = action.payload;
       state.ingredients = state.ingredients.filter(
-        (ingredient) => ingredient.uuid !== action.payload
+        (ingredient) => ingredient.uuid !== uuidToRemove
       );
-      state.counters[action.payload] = state.counters[action.payload] - 1;
+      state.counters[uuidToRemove] = state.counters[uuidToRemove] - 1;
     },
     reorderIngredients: (state, action) => {
       const { dragIndex, hoverIndex } = action.payload;
