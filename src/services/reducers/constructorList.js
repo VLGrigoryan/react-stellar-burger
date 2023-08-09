@@ -12,7 +12,12 @@ export const constructorSlice = createSlice({
   initialState,
   reducers: {
     addIngredient: (state, action) => {
+      const previousBunId = state.bun ? state.bun._id : null;
+
       if (action.payload.type === 'bun') {
+        if (previousBunId && state.counters[previousBunId]) {
+          state.counters[previousBunId] = 0;
+        }
         state.bun = { ...action.payload, uuid: uuidv4() };
         state.counters[action.payload._id] = 2;
       } else {
@@ -22,10 +27,18 @@ export const constructorSlice = createSlice({
     },
     removeIngredient: (state, action) => {
       const uuidToRemove = action.payload;
-      state.ingredients = state.ingredients.filter(
-        (ingredient) => ingredient.uuid !== uuidToRemove
-      );
-      state.counters[uuidToRemove] = state.counters[uuidToRemove] - 1;
+      const ingredient = state.ingredients.find(ingredient => ingredient.uuid === uuidToRemove);
+
+      if (ingredient) {
+        state.ingredients = state.ingredients.filter(
+          (ingredient) => ingredient.uuid !== uuidToRemove
+        );
+
+        state.counters[uuidToRemove] = state.counters[uuidToRemove] - 1;
+        if (state.counters[ingredient._id] > 0) {
+          state.counters[ingredient._id] = state.counters[ingredient._id] - 1;
+        }
+      }
     },
     reorderIngredients: (state, action) => {
       const { dragIndex, hoverIndex } = action.payload;

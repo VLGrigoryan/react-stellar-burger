@@ -1,10 +1,16 @@
 import React, { useRef } from "react";
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  ConstructorElement,
+  DragIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import CLStyle from "./ConstructorList.module.css";
-import { removeIngredient, reorderIngredients } from "../../services/reducers/constructorList";
+import {
+  removeIngredient,
+  reorderIngredients,
+} from "../../services/reducers/constructorList";
 
 export const ConstructorList = ({ card, index }) => {
   const dispatch = useDispatch();
@@ -26,7 +32,8 @@ export const ConstructorList = ({ card, index }) => {
       }
 
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
@@ -52,7 +59,12 @@ export const ConstructorList = ({ card, index }) => {
   dragTarget(dropTarget(ref));
 
   return (
-    <div ref={ref} className={`${CLStyle.item} ${dragTarget.isDragging ? CLStyle.dragging : ""}`}>
+    <div
+      ref={ref}
+      className={`${CLStyle.item} ${
+        dragTarget.isDragging ? CLStyle.dragging : ""
+      }`}
+    >
       <DragIcon type="primary" />
       <ConstructorElement
         type={card.type}
