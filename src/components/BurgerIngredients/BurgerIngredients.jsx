@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BIStyle from "./BurgerIngredients.module.css";
 import Card from "../Card/Card";
@@ -13,7 +13,6 @@ import {
   clearIngredientDetails,
 } from "../../services/reducers/ingredientDetails";
 
-
 function BurgerIngredients() {
   const [current, setCurrent] = useState("bun");
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -21,6 +20,43 @@ function BurgerIngredients() {
   const { data } = useSelector((state) => state.ingredients);
 
   const dispatch = useDispatch();
+
+  const ingredientTabs = useMemo(
+    () => ["bun", "sauce", "main"],
+    []
+  );
+
+  const tabNames = useMemo(
+    () => ({
+      bun: "Булки",
+      sauce: "Соусы",
+      main: "Начинка",
+    }),
+    []
+  );
+
+  const tabContents = useMemo(
+    () =>
+      ingredientTabs.map((tab) => (
+        <div key={tab} id={tab}>
+          <h2 className="text text_type_main-medium mt-10 mb-6">
+            {tabNames[tab]}
+          </h2>
+          <ul className={`${BIStyle["card-list"]} pl-4 pr-4`}>
+            {data
+              .filter((item) => item.type === tab)
+              .map((item) => (
+                <Card
+                  key={item._id}
+                  data={item}
+                  onClick={() => handleCardClick(item)}
+                />
+              ))}
+          </ul>
+        </div>
+      )),
+    [data, ingredientTabs, tabNames]
+  );
 
   const onTabClick = (tab) => {
     setCurrent(tab);
@@ -61,36 +97,19 @@ function BurgerIngredients() {
     <section className={BIStyle.section}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <div className={BIStyle.tabs}>
-        {["bun", "sauce", "main"].map((tab) => (
+        {ingredientTabs.map((tab) => (
           <Tab
             key={tab}
             value={tab}
             active={current === tab}
             onClick={() => onTabClick(tab)}
           >
-            {tab === "bun" ? "Булки" : tab === "sauce" ? "Соусы" : "Начинка"}
+            {tabNames[tab]}
           </Tab>
         ))}
       </div>
       <div className={`${BIStyle.container} pl-4 pr-4`}>
-        {["bun", "sauce", "main"].map((tab) => (
-          <div key={tab} id={tab}>
-            <h2 className="text text_type_main-medium mt-10 mb-6">
-              {tab === "bun" ? "Булки" : tab === "sauce" ? "Соусы" : "Начинка"}
-            </h2>
-            <ul className={`${BIStyle["card-list"]} pl-4 pr-4`}>
-              {data
-                .filter((item) => item.type === tab)
-                .map((item) => (
-                  <Card
-                    key={item._id}
-                    data={item}
-                    onClick={() => handleCardClick(item)}
-                  />
-                ))}
-            </ul>
-          </div>
-        ))}
+        {tabContents}
       </div>
       {isModalOpen && (
         <Modal onClose={handleCloseCardModal} title="Детали ингредиента">
