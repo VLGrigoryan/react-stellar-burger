@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BIStyle from "./BurgerIngredients.module.css";
 import Card from "../Card/Card";
@@ -21,10 +21,7 @@ function BurgerIngredients() {
 
   const dispatch = useDispatch();
 
-  const ingredientTabs = useMemo(
-    () => ["bun", "sauce", "main"],
-    []
-  );
+  const ingredientTabs = useMemo(() => ["bun", "sauce", "main"], []);
 
   const tabNames = useMemo(
     () => ({
@@ -34,6 +31,19 @@ function BurgerIngredients() {
     }),
     []
   );
+
+  const handleCardClick = useCallback(
+    (item) => {
+      dispatch(setIngredientDetails(item));
+      openModal();
+    },
+    [dispatch, openModal]
+  );
+
+  const handleCloseCardModal = () => {
+    clearIngredientDetails();
+    closeModal();
+  };
 
   const tabContents = useMemo(
     () =>
@@ -55,7 +65,7 @@ function BurgerIngredients() {
           </ul>
         </div>
       )),
-    [data, ingredientTabs, tabNames]
+    [data, ingredientTabs, tabNames, handleCardClick]
   );
 
   const onTabClick = (tab) => {
@@ -64,16 +74,6 @@ function BurgerIngredients() {
     if (ref) {
       ref.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const handleCardClick = (item) => {
-    dispatch(setIngredientDetails(item));
-    openModal();
-  };
-
-  const handleCloseCardModal = () => {
-    clearIngredientDetails();
-    closeModal();
   };
 
   useEffect(() => {
@@ -108,9 +108,7 @@ function BurgerIngredients() {
           </Tab>
         ))}
       </div>
-      <div className={`${BIStyle.container} pl-4 pr-4`}>
-        {tabContents}
-      </div>
+      <div className={`${BIStyle.container} pl-4 pr-4`}>{tabContents}</div>
       {isModalOpen && (
         <Modal onClose={handleCloseCardModal} title="Детали ингредиента">
           <IngredientDetails data={details} />
