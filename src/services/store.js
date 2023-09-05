@@ -3,6 +3,7 @@ import constructorSlice from "./reducers/constructorList";
 import ingredientsSlice from "./reducers/ingredients";
 import ingredientDetailsSlice from "./reducers/ingredientDetails";
 import orderSlice from "./reducers/order";
+import userSlice from "./reducers/user"
 import thunkMiddleware from "redux-thunk";
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
     ingredients: ingredientsSlice,
     ingredientDetails: ingredientDetailsSlice,
     order: orderSlice,
+    user:userSlice
   },
   middleware: [...getDefaultMiddleware(), thunkMiddleware],
 

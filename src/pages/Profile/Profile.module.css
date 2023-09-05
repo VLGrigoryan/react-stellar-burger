@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  max-width: 860px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  text-align: left;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.actions {
+  width: 320px;
+}
+
+.list-item {
+  width: 320px;
+  line-height: 64px;
+  list-style: none;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link_active {
+  color: #F2F2F3;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.button:hover {
+  opacity: .6;
+}
+
+.info {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #8585AD;
+  opacity: 0.4;
+}

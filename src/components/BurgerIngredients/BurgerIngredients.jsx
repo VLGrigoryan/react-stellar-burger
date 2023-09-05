@@ -6,21 +6,20 @@ import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
-import { useModal } from "../../hooks/useModal";
+import { useModal, saveModalState, getModalState } from "../../hooks/useModal";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setIngredientDetails,
   clearIngredientDetails,
 } from "../../services/reducers/ingredientDetails";
-
+ 
 function BurgerIngredients() {
   const [current, setCurrent] = useState("bun");
   const { isModalOpen, openModal, closeModal } = useModal();
   const { details } = useSelector((state) => state.ingredientDetails);
   const { data } = useSelector((state) => state.ingredients);
-
   const dispatch = useDispatch();
-
+ 
   const ingredientTabs = useMemo(() => ["bun", "sauce", "main"], []);
 
   const tabNames = useMemo(
@@ -32,17 +31,29 @@ function BurgerIngredients() {
     []
   );
 
+  useEffect(() => {
+    const savedModalState = getModalState();
+
+    if (savedModalState) {
+      dispatch(setIngredientDetails(savedModalState));
+      // openModal();
+    }
+  }, [dispatch, openModal]);
+
   const handleCardClick = useCallback(
     (item) => {
       dispatch(setIngredientDetails(item));
       openModal();
+      saveModalState(item);
+      window.history.pushState(null, null, `/ingredient/${item._id}`);
     },
     [dispatch, openModal]
   );
 
   const handleCloseCardModal = () => {
-    clearIngredientDetails();
     closeModal();
+    clearIngredientDetails();
+    window.history.pushState(null, null, `/`);
   };
 
   const tabContents = useMemo(

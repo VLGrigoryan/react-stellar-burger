@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import {
   ConstructorElement,
   Button,
@@ -20,6 +20,7 @@ import {
   clearConstructorList,
 } from "../../services/reducers/constructorList";
 import { ConstructorList } from "../ConstructorList/ConstructorList";
+import { useHistory } from "react-router-dom";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const BurgerConstructor = () => {
       isHover: monitor.isOver(),
     }),
   });
+
   const totalCost = useMemo(() => {
     let initialPrice = 0;
     if (card && card.length > 0) {
@@ -50,11 +52,18 @@ const BurgerConstructor = () => {
     return initialPrice;
   }, [card, bun]);
 
+  const history = useHistory();
+  const isUserLoggedIn = useSelector((state) => state.user.isAuthCheck);
 
   const handleOrderClick = () => {
     const ingredientIds = card.map((ingredient) => ingredient._id);
-    dispatch(fetchOrder(ingredientIds));
-    openModal();
+
+    if (!isUserLoggedIn) {
+      history.push("/login");
+    } else {
+      dispatch(fetchOrder(ingredientIds));
+      openModal();
+    }
   };
 
   const handleCloseModal = () => {
@@ -65,7 +74,9 @@ const BurgerConstructor = () => {
 
   return (
     <section
-      className={`${BCStyle.section} mt-25 ${isHover ? BCStyle.borderHoverColor : ''}`}
+      className={`${BCStyle.section} mt-25 ${
+        isHover ? BCStyle.borderHoverColor : ""
+      }`}
       ref={dropRef}
     >
       <div className={`${BCStyle["section-container"]}`}>
