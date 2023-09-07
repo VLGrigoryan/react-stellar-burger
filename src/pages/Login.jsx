@@ -6,7 +6,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { fetchUserData, loginUser } from "../services/reducers/user";
-import { useHistory } from "react-router-dom";
+import { useHistory,Redirect, useLocation  } from "react-router-dom";
 
 function LoginPage() {
   const history = useHistory();
@@ -35,11 +35,6 @@ function LoginPage() {
     }
   };
 
-  useEffect(() => {
-    if (isAuthCheck) {
-      dispatch(fetchUserData());
-    }
-  }, [dispatch, isAuthCheck]);
 
   return (
     <AuthForm
@@ -53,7 +48,6 @@ function LoginPage() {
       secondLinkText="Забыли пароль?"
       secondLinkTitle="Восстановить пароль"
       secondLinkTo="/forgot-password"
-      isAuthCheck={isAuthCheck}
     >
       <EmailInput
         onChange={handleChange}

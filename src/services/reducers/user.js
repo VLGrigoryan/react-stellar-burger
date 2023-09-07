@@ -70,6 +70,10 @@ export const fetchUserData = () => (dispatch) => {
     .then((res) => {
       if (res.success) {
         dispatch(setUser(res));
+      } else if (res.status === 403) {
+        // User is not logged in, you can handle this case here
+        // For example, dispatch an action to set isAuthCheck to false
+        dispatch(setUser({ user: null, success: false }));
       }
     })
     .catch((err) => console.log(err))

@@ -12,44 +12,67 @@ import {
   ProtectedRoute,
   IngredientPage,
 } from "../../pages";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { fetchUserData } from "../../services/reducers/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import Modal from "../Modal/Modal";
+import { useModal } from "../../hooks/useModal";
+import { clearIngredientDetails } from "../../services/reducers/ingredientDetails";
 
 function App() {
+  const location = useLocation();
+  const background = location.state?.background;
   const dispatch = useDispatch();
   const { isAuthCheck } = useSelector((state) => state.user);
-  const data = useSelector((state) => state.ingredientDetails);
+  const data = useSelector((store) => store.ingredients);
+  const { closeModal } = useModal();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchIngredients());
-    dispatch(fetchUserData());
-  }, [dispatch]);
+   }, [dispatch]);
 
+  const handleCloseCardModal = () => {
+    closeModal();
+    clearIngredientDetails();
+    history.push("/");
+  };
   return (
     data && (
       <>
         <AppHeader />
-        <Switch>
+        <Switch location={background || location}>
           <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/forgot-password" component={ForgotPasswordPage} />
-          <Route path="/reset-password" component={ResetPasswordPage} />
+          <ProtectedRoute path="/login" component={LoginPage} onlyUnAuth />
+          <ProtectedRoute
+            path="/register"
+            component={RegisterPage}
+            onlyUnAuth
+          />
+          <ProtectedRoute
+            path="/forgot-password"
+            component={ForgotPasswordPage}
+            onlyUnAuth
+          />
+          <ProtectedRoute
+            path="/reset-password"
+            component={ResetPasswordPage}
+            onlyUnAuth
+          />
           <ProtectedRoute
             path="/profile"
             component={ProfilePage}
             isAuthCheck={isAuthCheck}
-          />{" "}
-          <Route
-            path="/ingredient/:id"
-            component={IngredientPage}
-            data={data}
           />
-          <Route path="/ingredient/:id" exact>
-            <IngredientDetails />
-          </Route>
+          <Route path="/ingredient/:id" component={IngredientPage} />
         </Switch>
+        {background && (
+          <Route path="/ingredient/:id" exact>
+            <Modal onClose={handleCloseCardModal} title="Детали ингредиента">
+              <IngredientDetails data={data} />
+            </Modal>
+          </Route>
+        )}
       </>
     )
   );

@@ -5,8 +5,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux"; // Import useHistory
-import { resetPasswordApi } from "../utils/api"; // Import the action creator
+import { resetPasswordApi } from "../utils/api"; 
 
 function ResetPasswordPage() {
    const [user, setUser] = useState({
@@ -17,17 +16,12 @@ function ResetPasswordPage() {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const dispatch = useDispatch();
-  const history = useHistory();
+   const history = useHistory();
 
   const handleSubmitResetPassword = async (e) => {
     e.preventDefault();
-    const data = {
-      password: user.password,
-      token: user.token,
-    };
-    dispatch(resetPasswordApi(data))
-      .then(() => {
+    resetPasswordApi(user)
+          .then(() => {
         history.push("/login");
       })
       .catch((err) => {
@@ -45,7 +39,6 @@ function ResetPasswordPage() {
       linkText="Вспомнили пароль?"
       linkTitle="Войти"
       linkTo="/login"
-      isAuthCheck={false}
       secondLinkTo=""
     >
       <PasswordInput

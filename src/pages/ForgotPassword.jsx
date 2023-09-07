@@ -1,14 +1,10 @@
-// ForgotPasswordPage.jsx
-
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { requestResetUserPassword } from "../utils/api";
 import AuthForm from "./AuthForm/AuthForm";
 import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
  
 function ForgotPasswordPage() {
-  const { isAuthCheck } = useSelector((store) => store.user);
    const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
   const history = useHistory();
@@ -28,7 +24,6 @@ function ForgotPasswordPage() {
       .catch((err) => console.log(err));
   };
   
-
   return (
     <AuthForm
       formName="forgot_password"
@@ -39,7 +34,6 @@ function ForgotPasswordPage() {
       linkTitle="Войти"
       linkTo="/login"
       secondLinkTo=""
-      isAuthCheck={isAuthCheck}
     >
       <EmailInput
         onChange={handleChange}

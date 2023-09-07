@@ -2,26 +2,21 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BIStyle from "./BurgerIngredients.module.css";
 import Card from "../Card/Card";
-import Modal from "../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
-import { useModal, saveModalState, getModalState } from "../../hooks/useModal";
+import { useModal } from "../../hooks/useModal";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setIngredientDetails,
-  clearIngredientDetails,
-} from "../../services/reducers/ingredientDetails";
- 
+import { setIngredientDetails } from "../../services/reducers/ingredientDetails";
+import { useHistory } from "react-router-dom";
+
 function BurgerIngredients() {
   const [current, setCurrent] = useState("bun");
-  const { isModalOpen, openModal, closeModal } = useModal();
-  const { details } = useSelector((state) => state.ingredientDetails);
+  const {openModal} = useModal();
   const { data } = useSelector((state) => state.ingredients);
   const dispatch = useDispatch();
- 
-  const ingredientTabs = useMemo(() => ["bun", "sauce", "main"], []);
+  const history = useHistory();
 
+  const ingredientTabs = useMemo(() => ["bun", "sauce", "main"], []);
   const tabNames = useMemo(
     () => ({
       bun: "Булки",
@@ -31,30 +26,14 @@ function BurgerIngredients() {
     []
   );
 
-  useEffect(() => {
-    const savedModalState = getModalState();
-
-    if (savedModalState) {
-      dispatch(setIngredientDetails(savedModalState));
-      // openModal();
-    }
-  }, [dispatch, openModal]);
-
   const handleCardClick = useCallback(
     (item) => {
       dispatch(setIngredientDetails(item));
       openModal();
-      saveModalState(item);
-      window.history.pushState(null, null, `/ingredient/${item._id}`);
+      history.push(`/ingredient/${item._id}`, { background: history.location });
     },
-    [dispatch, openModal]
+    [dispatch, openModal, history]
   );
-
-  const handleCloseCardModal = () => {
-    closeModal();
-    clearIngredientDetails();
-    window.history.pushState(null, null, `/`);
-  };
 
   const tabContents = useMemo(
     () =>
@@ -120,11 +99,6 @@ function BurgerIngredients() {
         ))}
       </div>
       <div className={`${BIStyle.container} pl-4 pr-4`}>{tabContents}</div>
-      {isModalOpen && (
-        <Modal onClose={handleCloseCardModal} title="Детали ингредиента">
-          <IngredientDetails data={details} />
-        </Modal>
-      )}
     </section>
   );
 }

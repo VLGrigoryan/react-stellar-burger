@@ -1,7 +1,7 @@
 // RegisterPage.jsx
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser, fetchUserData } from "../services/reducers/user";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../services/reducers/user";
 import AuthForm from "./AuthForm/AuthForm";
 import {
   Input,
@@ -13,8 +13,7 @@ import { useHistory } from "react-router-dom";
 function RegisterPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { isAuthCheck } = useSelector((state) => state.user);
-  const [user, setUser] = useState({
+   const [user, setUser] = useState({
     name: "",
     password: "",
     email: "",
@@ -33,12 +32,7 @@ function RegisterPage() {
         console.log("Registration failed");
       }
     });
-  };
-  useEffect(() => {
-    if (isAuthCheck) {
-      dispatch(fetchUserData());
-    }
-  }, [dispatch, isAuthCheck]);
+  }; 
 
   return (
     <AuthForm
@@ -50,7 +44,6 @@ function RegisterPage() {
       linkTitle="Войти"
       linkTo="/login"
       secondLinkTo=""
-      isAuthCheck={isAuthCheck}
     >
       <Input
         onChange={handleChange}

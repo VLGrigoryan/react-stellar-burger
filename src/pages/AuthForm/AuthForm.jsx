@@ -1,5 +1,5 @@
  import React from "react";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import APStyles from "./AuthForm.module.css";
 
@@ -12,16 +12,10 @@ const AuthForm = ({
   linkText,
   linkTitle,
   linkTo,
-  isAuthCheck,
   secondLinkText,
   secondLinkTitle,
   secondLinkTo,
 }) => {
-  const { state } = useLocation();
-
-  if (isAuthCheck) {
-    return <Redirect to={state?.from || "/"} />;
-  }
 
   return (
     <div className={`${APStyles.container} mt-30 pt-15`}>

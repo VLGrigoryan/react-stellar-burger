@@ -3,11 +3,15 @@ import PropTypes from "prop-types";
 import IDStyle from "./IngredientDetails.module.css";
 import { ingredientPropType } from "../../utils/prop-types";
 import { useSelector } from "react-redux";
- 
+import { useParams } from "react-router-dom";
+
 const IngredientDetails = () => {
-  const data = useSelector(store => store.ingredientDetails.data);
-  
-    const { image_large, name, calories, carbohydrates, fat, proteins } = data;
+  const ingredients = useSelector(store => store.ingredients.data);
+  const { id } = useParams()  
+  const data = ingredients.find((item) => item._id === id);
+  if (!data) {
+    return null;}
+  const { image_large, name, calories, carbohydrates, fat, proteins } = data;
 
     return (
       <div className={`${IDStyle.container} mr-25 ml-25`}>

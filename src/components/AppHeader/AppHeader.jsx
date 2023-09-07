@@ -1,18 +1,21 @@
 import React from "react";
-import {
-  Logo,
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderStyle from "./AppHeader.module.css";
-import { NavLink } from "react-router-dom";
- 
+import { NavLink, useLocation, useHistory } from "react-router-dom";
+import queryString from "query-string"; 
+
 const AppHeader = () => {
+  const location = useLocation();
+  const history = useHistory();
 
-  // const isUserLoggedIn = useSelector((state) => state.user.isAuthCheck);
-
-  // const profileLinkTo = isUserLoggedIn ? "/profile" : "/login";
+   const updateSearchURL = (searchParams) => {
+    const currentSearch = queryString.parse(location.search);
+    const newSearch = { ...currentSearch, ...searchParams };
+    history.push({
+      pathname: location.pathname,
+      search: queryString.stringify(newSearch),
+    });
+  };
 
   return (
     <header className={`${HeaderStyle.header} pt-4 pb-4`}>
@@ -22,6 +25,9 @@ const AppHeader = () => {
             to="/"
             className={`${HeaderStyle.link} pt-4 pb-4 pr-5 pl-5 mr-2`}
             activeClassName={HeaderStyle.activeLink}
+            onClick={() => {
+               updateSearchURL({ section: "constructor" });
+            }}
           >
             <BurgerIcon type="primary" />
             <span className="text text_color_primary text_type_main-default ml-2">
@@ -32,6 +38,9 @@ const AppHeader = () => {
             to="/orders"
             className={`${HeaderStyle.link} ${HeaderStyle.secondaryLink} pt-4 pb-4 pr-5 pl-5`}
             activeClassName={HeaderStyle.activeLink}
+            onClick={() => {
+               updateSearchURL({ section: "orders" });
+            }}
           >
             <ListIcon type="secondary" />
             <span className="text text_color_inactive text_type_main-default ml-2">
@@ -47,6 +56,9 @@ const AppHeader = () => {
             to="/profile"
             className={`${HeaderStyle.link} ${HeaderStyle.secondaryLink} pt-4 pb-4 pr-5 pl-5`}
             activeClassName={HeaderStyle.activeLink}
+            onClick={() => {
+               updateSearchURL({ section: "profile" });
+            }}
           >
             <ProfileIcon type="secondary" />
             <span className="text text_color_inactive text_type_main-default ml-2">

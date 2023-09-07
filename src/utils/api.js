@@ -1,4 +1,4 @@
-import { getCookie } from './cookie';
+import { getCookie, setCookie } from "./cookie";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
@@ -6,15 +6,32 @@ const defaultHeaders = {
   "Content-Type": "application/json",
 };
 
+// const request = (endpoint, options) => {
+//   return fetch(`${baseUrl}${endpoint}`, options).then((res) => {
+//     if (res.ok) {
+//       return res.json();
+//     }
+//     if (res.status === 403) {
+      
+//       return refreshToken().then(() => {
+//         request(endpoint, options);
+//       });
+//     }
+//     return Promise.reject(`Error ${res.status}`);
+//   });
+// };
 const request = (endpoint, options) => {
   return fetch(`${baseUrl}${endpoint}`, options).then((res) => {
     if (res.ok) {
       return res.json();
     }
+    if (res.status === 403) {
+      console.log("User is not authorized.");
+      return Promise.reject(`Error ${res.status}`);
+    }
     return Promise.reject(`Error ${res.status}`);
   });
 };
-
 export const getIngredients = () => request("/ingredients");
 
 export const createOrder = (ingredientIds) =>
@@ -24,14 +41,28 @@ export const createOrder = (ingredientIds) =>
     body: JSON.stringify({ ingredients: ingredientIds }),
   });
 
+// export const getUserApi = () => {
+//   const token = getCookie("token");
+//   const headers = {
+//     ...defaultHeaders,
+//     Authorization: "Bearer " + token,
+//   };
+//   return request(`/auth/user`, { headers });
+// };
+
 export const getUserApi = () => {
   const token = getCookie("token");
+  if (!token) {
+    console.log("User is not authenticated.");  
+    return Promise.reject("User is not authenticated");
+  }
   const headers = {
     ...defaultHeaders,
     Authorization: "Bearer " + token,
   };
   return request(`/auth/user`, { headers });
 };
+
 
 export const changeUserApi = (userData) => {
   const token = getCookie("token");
@@ -80,10 +111,32 @@ export const requestResetUserPassword = (email) => {
   });
 };
 
-export const resetPasswordApi = (data) => {
+export const resetPasswordApi = (user) => {
   return request(`/password-reset/reset`, {
     headers: defaultHeaders,
     method: "POST",
-    body: JSON.stringify({ password: data.password, token: data.token }),
+    body: JSON.stringify({ password: user.password, token: user.token }),
+  });
+};
+
+
+export const refreshToken = () => {
+  return request(`/auth/token`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({
+      token: getCookie("refresh"),
+    }),
+  })    .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка ${res.status}`);
+  })
+  .then((res) => {
+    setCookie("token", res.accessToken.split("Bearer ")[1]);
+    setCookie("refresh", res.refreshToken);
   });
 };

@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 function IngredientPage() {
-  const { id } = useParams();
-  const ingredients = useSelector((store) => store.ingredients.data);
-   const data = ingredients.find((item) => item._id === id);
+  const ingredients = useSelector(store => store.ingredients.data);
+  const { id } = useParams()  
+  const data = ingredients.find((item) => item._id === id);
   if (!data) {
     return null;}
   const { image_large, name, calories, carbohydrates, fat, proteins } = data;
