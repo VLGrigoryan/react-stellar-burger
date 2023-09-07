@@ -13,7 +13,6 @@ import {
   IngredientPage,
 } from "../../pages";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
-import { fetchUserData } from "../../services/reducers/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 import { useModal } from "../../hooks/useModal";
