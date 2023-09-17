@@ -1,25 +1,10 @@
 import { getCookie, setCookie } from "./cookie";
-
-const baseUrl = 'https://norma.nomoreparties.space/api';
+ const baseUrl = 'https://norma.nomoreparties.space/api';
 
 const defaultHeaders = {
   "Content-Type": "application/json",
 };
 
-// const request = (endpoint, options) => {
-//   return fetch(`${baseUrl}${endpoint}`, options).then((res) => {
-//     if (res.ok) {
-//       return res.json();
-//     }
-//     if (res.status === 403) {
-      
-//       return refreshToken().then(() => {
-//         request(endpoint, options);
-//       });
-//     }
-//     return Promise.reject(`Error ${res.status}`);
-//   });
-// };
 const request = (endpoint, options) => {
   return fetch(`${baseUrl}${endpoint}`, options).then((res) => {
     if (res.ok) {
@@ -40,20 +25,11 @@ export const createOrder = (ingredientIds) =>
     headers: defaultHeaders,
     body: JSON.stringify({ ingredients: ingredientIds }),
   });
-
-// export const getUserApi = () => {
-//   const token = getCookie("token");
-//   const headers = {
-//     ...defaultHeaders,
-//     Authorization: "Bearer " + token,
-//   };
-//   return request(`/auth/user`, { headers });
-// };
-
+  
 export const getUserApi = () => {
   const token = getCookie("token");
   if (!token) {
-    console.log("User is not authenticated.");  
+    console.log("User is not authenticated.");
     return Promise.reject("User is not authenticated");
   }
   const headers = {
@@ -129,14 +105,14 @@ export const refreshToken = () => {
     body: JSON.stringify({
       token: getCookie("refresh"),
     }),
-  })    .then((res) => {
+  }).then((res) => {
     if (res.ok) {
       return res.json();
     }
     return Promise.reject(`Ошибка ${res.status}`);
   })
-  .then((res) => {
-    setCookie("token", res.accessToken.split("Bearer ")[1]);
-    setCookie("refresh", res.refreshToken);
-  });
+    .then((res) => {
+      setCookie("token", res.accessToken.split("Bearer ")[1]);
+      setCookie("refresh", res.refreshToken);
+    });
 };

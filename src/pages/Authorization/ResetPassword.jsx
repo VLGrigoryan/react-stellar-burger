@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import {  useHistory } from "react-router-dom";
-import AuthForm from "./AuthForm/AuthForm";
+import AuthForm from "../AuthForm/AuthForm";
 import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { resetPasswordApi } from "../utils/api"; 
+import { resetPasswordApi } from "../../utils/api"; 
 
 function ResetPasswordPage() {
    const [user, setUser] = useState({
     token: "",
     password: "",
   });
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };

@@ -1,17 +1,16 @@
- import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import AuthForm from "./AuthForm/AuthForm";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import AuthForm from "../AuthForm/AuthForm";
 import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { fetchUserData, loginUser } from "../services/reducers/user";
-import { useHistory,Redirect, useLocation  } from "react-router-dom";
+import { loginUser } from "../../services/reducers/user";
+import { useHistory } from "react-router-dom";
 
 function LoginPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { isAuthCheck } = useSelector((state) => state.user);
   const [user, setUser] = useState({
     password: "",
     email: "",
@@ -28,13 +27,12 @@ function LoginPage() {
       if (response && response.success) {
         history.push("/profile");
       } else {
-         console.log("Login failed");
+        console.log("Login failed");
       }
     } catch (error) {
-       console.error("Login error:", error);
+      console.error("Login error:", error);
     }
   };
-
 
   return (
     <AuthForm

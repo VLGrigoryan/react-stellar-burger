@@ -9,7 +9,7 @@ import {
 import { deleteCookie, setCookie } from "../../utils/cookie";
 
 const initialState = {
-  isAuthCheck: false,
+  isAuthCheck: localStorage.getItem("authentication") === "true",
   isLoading: false,
   data: {
     email: null,
@@ -25,6 +25,11 @@ const userSlice = createSlice({
       const { user, success } = action.payload;
       state.data = user;
       state.isAuthCheck = success;
+      if (success) {
+        localStorage.setItem("authentication", "true");
+      } else {
+        localStorage.removeItem("authentication");
+      }
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -32,11 +37,13 @@ const userSlice = createSlice({
     resetUser: (state) => {
       state.isAuthCheck = false;
       state.data = { email: null, name: null };
+      localStorage.removeItem("authentication");
     },
   },
 });
 
 export const { setUser, setLoading, resetUser } = userSlice.actions;
+
 
 export const loginUser = ({ email, password }) => async (dispatch) => {
   try {
@@ -71,8 +78,6 @@ export const fetchUserData = () => (dispatch) => {
       if (res.success) {
         dispatch(setUser(res));
       } else if (res.status === 403) {
-        // User is not logged in, you can handle this case here
-        // For example, dispatch an action to set isAuthCheck to false
         dispatch(setUser({ user: null, success: false }));
       }
     })
@@ -83,7 +88,8 @@ export const fetchUserData = () => (dispatch) => {
 export const registerUser = ({ email, password, name }) => (dispatch) => {
   return registerApi({ email, password, name }).then((res) => {
     dispatch(setUser(res));
-    return res; });
+    return res;
+  });
 };
 
 export const changeUserData = (user) => (dispatch) => {

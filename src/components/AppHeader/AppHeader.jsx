@@ -35,11 +35,11 @@ const AppHeader = () => {
             </span>
           </NavLink>
           <NavLink
-            to="/orders"
+            to="/feed"
             className={`${HeaderStyle.link} ${HeaderStyle.secondaryLink} pt-4 pb-4 pr-5 pl-5`}
             activeClassName={HeaderStyle.activeLink}
             onClick={() => {
-               updateSearchURL({ section: "orders" });
+               updateSearchURL({ section: "feed" });
             }}
           >
             <ListIcon type="secondary" />

@@ -13,59 +13,77 @@ import {
   IngredientPage,
 } from "../../pages";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
-import { fetchUserData } from "../../services/reducers/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 import { useModal } from "../../hooks/useModal";
 import { clearIngredientDetails } from "../../services/reducers/ingredientDetails";
-
+import FeedPage from "../Feed/Feed";
+import FeedOrderPage from "../FeedOrder/FeedOrder";
+ 
 function App() {
   const location = useLocation();
-  const background = location.state?.background;
-  const dispatch = useDispatch();
-  const { isAuthCheck } = useSelector((state) => state.user);
-  const data = useSelector((store) => store.ingredients);
-  const { closeModal } = useModal();
   const history = useHistory();
-
+  const dispatch = useDispatch();
+  const { closeModal } = useModal();
+  const data = useSelector((store) => store.ingredients);
+  const background = location.state?.background;
+  const backgroundFeed = location.state?.backgroundFeed;
+  const order = location.state?.order;
+ 
   useEffect(() => {
-    dispatch(fetchIngredients());
-   }, [dispatch]);
+     dispatch(fetchIngredients());
+  }, [dispatch]);
 
   const handleCloseCardModal = () => {
     closeModal();
     clearIngredientDetails();
-    history.push("/");
+    history.goBack();
   };
+
   return (
     data && (
       <>
         <AppHeader />
-        <Switch location={background || location}>
+        <Switch location={background || backgroundFeed || location}>
           <Route exact path="/" component={HomePage} />
-          <ProtectedRoute path="/login" component={LoginPage} onlyUnAuth />
+          <Route path="/feed" exact component={FeedPage} />
+          <Route path="/feed/:id" component={FeedOrderPage} />
+          <Route path="/ingredient/:id" component={IngredientPage} />
+          <ProtectedRoute path="/login" onlyUnAuth component={LoginPage} />
           <ProtectedRoute
             path="/register"
-            component={RegisterPage}
             onlyUnAuth
+            component={RegisterPage}
           />
           <ProtectedRoute
             path="/forgot-password"
-            component={ForgotPasswordPage}
             onlyUnAuth
+            component={ForgotPasswordPage}
           />
           <ProtectedRoute
             path="/reset-password"
-            component={ResetPasswordPage}
             onlyUnAuth
+            component={ResetPasswordPage}
           />
-          <ProtectedRoute
-            path="/profile"
-            component={ProfilePage}
-            isAuthCheck={isAuthCheck}
-          />
-          <Route path="/ingredient/:id" component={IngredientPage} />
+          <Route path="/profile/orders/:id">
+            <FeedOrderPage isUser/>
+          </Route>
+          <ProtectedRoute path="/profile" component={ProfilePage}   />
         </Switch>
+        {background && (
+          <Route path="/profile/orders/:id" exact>
+            <Modal onClose={handleCloseCardModal} number={order}>
+              <FeedOrderPage isUser/>
+            </Modal>
+          </Route>
+        )}
+        {backgroundFeed && (
+          <Route path="/feed/:id" exact>
+            <Modal onClose={handleCloseCardModal} number={order.number}>
+              <FeedOrderPage modal={true} />
+            </Modal>
+          </Route>
+        )}
         {background && (
           <Route path="/ingredient/:id" exact>
             <Modal onClose={handleCloseCardModal} title="Детали ингредиента">

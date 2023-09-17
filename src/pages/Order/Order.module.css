@@ -1,0 +1,251 @@
+.orderContainer {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas:
+    "number . . data"
+    "title title title title"
+    "status . . ."
+    "list . . price";
+  justify-items: stretch;
+  justify-content: space-between;
+  gap: 24px 24px;
+  padding: 24px 24px;
+  border-radius: 40px;
+  background-color: #1C1C21;
+  width: 584px;
+  cursor: pointer;
+}
+
+
+.modalOrderContainer {
+  display: grid;
+  width: 640px;
+  box-sizing: border-box;
+  padding: 20px 0 20px;
+  grid-template-areas:
+    "number number number number"
+    "title title title title"
+    "status . . ."
+    "list list list list"
+    "data data . price";
+  grid-auto-columns: 4fr 1fr;
+  align-items: center;
+  margin: auto;
+  position: relative;
+}
+
+.orderNumber {
+  grid-area: number;
+
+}
+
+.modalOrderNumber {
+  text-align: center;
+  grid-area: number;
+  margin-bottom: 40px;
+}
+
+.orderData {
+  grid-area: data;
+  text-align: right;
+}
+
+.modalOrderDate {
+  grid-area: data;
+  text-align: left;
+}
+
+.orderTitle {
+  grid-area: title;
+}
+
+.modalOrderTitle {
+  grid-area: title;
+}
+
+.orderPrice {}
+
+.orderDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .ingredientsContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-height: 64px;
+  grid-area: list;
+} */
+
+.ingredientsList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 64px;
+  grid-area: list;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.modalIngredientsList {
+  list-style-type: none;
+  margin: 24px 0 40px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 304px;
+  overflow-y: scroll;
+  scrollbar-color: #8585AD #2F2F37;
+  grid-area: list;
+  align-items: flex-start;
+}
+
+
+
+
+.modalIngredientsList::-webkit-scrollbar {
+  width: 8px;
+  margin-left: 24px;
+}
+
+.modalIngredientsList::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
+
+.modalIngredientsList::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+
+.cardFigure {
+  display: flex;
+  margin: 0;
+  grid-area: price;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.modalCardFigure {
+  grid-area: price;
+  display: flex;
+  margin: 0;
+
+  grid-area: price;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* .ingredientItem:nth-child(n+) {
+  z-index: 1;  } */
+
+
+
+.ingredientItem {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 2px solid transparent;
+  border-radius: 32px;
+  background-image: linear-gradient(#131316, #131316), linear-gradient(to right, #801AB2, #4C4CFF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  margin-right: -16px;
+  overflow: hidden;
+  z-index: 6;
+}
+
+
+.modalIngredientItem {
+  display: flex;
+  align-items: center;
+  width: 608px;
+}
+
+.ingredientImage {
+  width: 112px;
+  height: 56px;
+}
+
+.modalIngredientImage {
+  width: 112px;
+  height: 56px;
+}
+
+
+.overlayItem {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(28, 28, 33, 0.6);
+  z-index: 2;
+}
+
+.modalOverlayItem {
+  display: none;
+}
+
+.counter {
+  margin-right: 4px;
+  display: flex;
+}
+
+.modalCounter {
+  display: none;
+}
+
+.ingredientName {
+  display: none;
+}
+
+.modalIngredientName {
+  display: block;
+  max-width: 320px;
+
+}
+
+.priceInfo {
+  display: none;
+}
+
+.modalPriceInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.statusCircle {}
+
+.modalStatusCircle {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 2px solid transparent;
+  border-radius: 32px;
+  background-image: linear-gradient(#131316, #131316), linear-gradient(to right, #801AB2, #4C4CFF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  overflow: hidden;
+}
+
+.status {
+  grid-area: status;
+  grid-row-start: 2;
+  margin-top: 26px;
+}

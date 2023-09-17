@@ -1,10 +1,11 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import constructorSlice from "./reducers/constructorList";
 import ingredientsSlice from "./reducers/ingredients";
 import ingredientDetailsSlice from "./reducers/ingredientDetails";
 import orderSlice from "./reducers/order";
 import userSlice from "./reducers/user"
-import thunkMiddleware from "redux-thunk";
+import socketSlice, { wsActions } from "./reducers/feed"
+import { socketMiddleware } from "./middleware/middleware";
 
 const store = configureStore({
   reducer: {
@@ -12,11 +13,10 @@ const store = configureStore({
     ingredients: ingredientsSlice,
     ingredientDetails: ingredientDetailsSlice,
     order: orderSlice,
-    user:userSlice
+    user: userSlice,
+    feed: socketSlice,
   },
-  middleware: [...getDefaultMiddleware(), thunkMiddleware],
-
-});
-
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddleware(wsActions))
+})
 export default store;
 

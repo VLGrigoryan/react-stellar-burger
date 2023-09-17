@@ -1,8 +1,8 @@
 // RegisterPage.jsx
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../services/reducers/user";
-import AuthForm from "./AuthForm/AuthForm";
+import { registerUser } from "../../services/reducers/user";
+import AuthForm from "../AuthForm/AuthForm";
 import {
   Input,
   EmailInput,

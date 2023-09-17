@@ -7,7 +7,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const modalsContainer = document.querySelector("#modals");
 
-function Modal({ title, onClose, children }) {
+function Modal({ title, onClose, children, number }) {
   React.useEffect(() => {
     const handleEscKeydown = (e) => {
       if (e.code === "Escape") {
@@ -28,6 +28,7 @@ function Modal({ title, onClose, children }) {
         <div className={`${MStyle.container} mt-10 ml-10`}>
           {title && <h3 className="text text_type_main-large">{title}</h3>}
         </div>
+        {number && <h3 className={`${MStyle.number} text text_type_digits-default`}>#{number}</h3>}
         {children}
         <button className={MStyle.close} onClick={onClose}>
           <CloseIcon type="primary" />

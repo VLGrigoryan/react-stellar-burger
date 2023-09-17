@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { requestResetUserPassword } from "../utils/api";
-import AuthForm from "./AuthForm/AuthForm";
+import { requestResetUserPassword } from "../../utils/api";
+import AuthForm from "../AuthForm/AuthForm";
 import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
  
