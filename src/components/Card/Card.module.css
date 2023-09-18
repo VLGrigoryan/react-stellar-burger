@@ -1,0 +1,19 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 272px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.card-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+
+.price {
+  display: flex;
+}
