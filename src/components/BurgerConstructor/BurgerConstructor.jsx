@@ -28,7 +28,8 @@ const BurgerConstructor = () => {
   const orderNumber = useSelector(selectOrderNumber);
   const bun = useSelector((state) => state.constructorList.bun);
   const card = useSelector((state) => state.constructorList.ingredients);
-
+  const history = useHistory();
+  const isUserLoggedIn = useSelector((state) => state.user.isAuthCheck);
   const [{ isHover }, dropRef] = useDrop({
     accept: "ingredient",
     drop: (item) => {
@@ -52,16 +53,12 @@ const BurgerConstructor = () => {
     return initialPrice;
   }, [card, bun]);
 
-  const history = useHistory();
-  const isUserLoggedIn = useSelector((state) => state.user.isAuthCheck);
-
   const handleOrderClick = () => {
     const ingredientIds = card.map((ingredient) => ingredient._id);
-
     if (!isUserLoggedIn) {
       history.push("/login");
     } else {
-      dispatch(fetchOrder(ingredientIds));
+      dispatch(fetchOrder({ bun, ingredientIds }));
       openModal();
     }
   };

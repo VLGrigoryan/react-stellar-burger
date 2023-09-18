@@ -1,5 +1,5 @@
- import React from "react";
-import { Link} from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import APStyles from "./AuthForm.module.css";
 
@@ -16,7 +16,6 @@ const AuthForm = ({
   secondLinkTitle,
   secondLinkTo,
 }) => {
-
   return (
     <div className={`${APStyles.container} mt-30 pt-15`}>
       <form className={APStyles.form} name={formName} onSubmit={onSubmit}>

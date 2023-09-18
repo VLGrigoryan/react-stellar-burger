@@ -3,8 +3,8 @@ import { createOrder } from "../../utils/api";
 
 export const fetchOrder = createAsyncThunk(
   "order/fetchOrder",
-  async (ingredientIds) => {
-    const response = await createOrder(ingredientIds);
+  async ({ bun, ingredientIds }) => {
+    const response = await createOrder({ bun, ingredientIds });
     return response.order.number;
   }
 );

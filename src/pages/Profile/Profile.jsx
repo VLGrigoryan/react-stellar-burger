@@ -22,7 +22,7 @@ import FeedList from "../Order/OrderList";
 function ProfilePage() {
   const history = useHistory();
   const location = useLocation();
-  const { data, isAuthCheck } = useSelector((state) => state.user);
+  const { data } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const password = useRef(null);
   const name = useRef(null);

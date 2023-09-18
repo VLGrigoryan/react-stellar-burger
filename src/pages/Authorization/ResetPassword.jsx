@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import {  useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import AuthForm from "../AuthForm/AuthForm";
 import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { resetPasswordApi } from "../../utils/api"; 
+import { resetPasswordApi } from "../../utils/api";
 
 function ResetPasswordPage() {
-   const [user, setUser] = useState({
+  const [user, setUser] = useState({
     token: "",
     password: "",
   });
@@ -16,12 +16,12 @@ function ResetPasswordPage() {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-   const history = useHistory();
+  const history = useHistory();
 
   const handleSubmitResetPassword = async (e) => {
     e.preventDefault();
     resetPasswordApi(user)
-          .then(() => {
+      .then(() => {
         history.push("/login");
       })
       .catch((err) => {

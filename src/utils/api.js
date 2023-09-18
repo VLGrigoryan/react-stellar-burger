@@ -1,5 +1,5 @@
 import { getCookie, setCookie } from "./cookie";
- const baseUrl = 'https://norma.nomoreparties.space/api';
+const baseUrl = 'https://norma.nomoreparties.space/api';
 
 const defaultHeaders = {
   "Content-Type": "application/json",
@@ -19,13 +19,16 @@ const request = (endpoint, options) => {
 };
 export const getIngredients = () => request("/ingredients");
 
-export const createOrder = (ingredientIds) =>
+export const createOrder = ({ bun, ingredientIds }) =>
   request("/orders", {
     method: "POST",
-    headers: defaultHeaders,
-    body: JSON.stringify({ ingredients: ingredientIds }),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("token")
+    },
+    body: JSON.stringify({ ingredients: [bun._id, bun._id, ...ingredientIds] }),
   });
-  
+
 export const getUserApi = () => {
   const token = getCookie("token");
   if (!token) {
