@@ -18,8 +18,9 @@ export const socketMiddleware = (wsActions) => (store) => (next) => (action) => 
   }
 
   if (type === wsClose && store.socket) {
-    store.socket.close();
-    delete store.socket;
+    store.socket.onclose = () => {
+      dispatch(onClose());
+    };
   }
   next(action);
 };

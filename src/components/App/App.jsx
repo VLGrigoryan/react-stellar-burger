@@ -19,7 +19,7 @@ import { useModal } from "../../hooks/useModal";
 import { clearIngredientDetails } from "../../services/reducers/ingredientDetails";
 import FeedPage from "../Feed/Feed";
 import FeedOrderPage from "../FeedOrder/FeedOrder";
- 
+
 function App() {
   const location = useLocation();
   const history = useHistory();
@@ -29,9 +29,9 @@ function App() {
   const background = location.state?.background;
   const backgroundFeed = location.state?.backgroundFeed;
   const order = location.state?.order;
- 
+
   useEffect(() => {
-     dispatch(fetchIngredients());
+    dispatch(fetchIngredients());
   }, [dispatch]);
 
   const handleCloseCardModal = () => {
@@ -66,20 +66,20 @@ function App() {
             component={ResetPasswordPage}
           />
           <Route path="/profile/orders/:id">
-            <FeedOrderPage isUser/>
+            <FeedOrderPage isUser />
           </Route>
-          <ProtectedRoute path="/profile" component={ProfilePage}   />
+          <ProtectedRoute path="/profile" isAuthCheck component={ProfilePage} />
         </Switch>
         {background && (
           <Route path="/profile/orders/:id" exact>
             <Modal onClose={handleCloseCardModal} number={order}>
-              <FeedOrderPage isUser/>
+              <FeedOrderPage isUser />
             </Modal>
           </Route>
         )}
         {backgroundFeed && (
           <Route path="/feed/:id" exact>
-            <Modal onClose={handleCloseCardModal} number={order.number}>
+            <Modal onClose={handleCloseCardModal} number={order}>
               <FeedOrderPage modal={true} />
             </Modal>
           </Route>

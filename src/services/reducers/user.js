@@ -9,7 +9,7 @@ import {
 import { deleteCookie, setCookie } from "../../utils/cookie";
 
 const initialState = {
-  isAuthCheck: localStorage.getItem("authentication") === "true",
+  isAuthCheck: false,
   isLoading: false,
   data: {
     email: null,

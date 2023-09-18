@@ -22,6 +22,7 @@ function FeedList({ listClass, huge, isUser }) {
       type: wsActions.wsInit,
       payload: { wsUrl, user: isUser },
     });
+    return () => dispatch({ type: wsActions.wsClose });
   }, [dispatch, isUser]);
 
   const handleOrderOpen = useCallback(

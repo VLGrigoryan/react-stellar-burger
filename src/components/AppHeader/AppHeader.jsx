@@ -53,15 +53,15 @@ const AppHeader = () => {
             className={`${AHStyles.link} ${AHStyles.secondaryLink} pt-4 pb-4 pr-5 pl-5`}
             activeClassName={AHStyles.activeLink}
             onClick={() => {
-              updateSearchURL({ section: "orders" });
+              updateSearchURL({ section: "feed" });
             }}
           >
             <ListIcon
-              type={location.pathname === "/orders" ? "active" : "secondary"}
+              type={location.pathname === "/feed" ? "active" : "secondary"}
             />
             <span
               className={`text ${
-                location.pathname === "/orders"
+                location.pathname === "/feed"
                   ? "text_color_active"
                   : "text_color_inactive"
               } text_type_main-default ml-2`}
