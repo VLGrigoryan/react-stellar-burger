@@ -1,0 +1,36 @@
+.container {
+  column-gap: 20px;
+  row-gap: 32px;
+  list-style: none;
+  text-align: center;
+  margin: 0 auto 60px;
+  padding: 0;
+  width: 516px;
+  display: grid;
+  grid-template-columns: 120px 112px 112px 112px;
+  grid-template-areas:
+    "image image image image";
+  align-items: center;
+  white-space: nowrap;
+}
+
+.image-container {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: image;
+}
+
+.image {
+  width: 480px;
+  height: 240px;
+}
+
+
+.discription {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}

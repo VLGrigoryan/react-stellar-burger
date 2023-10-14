@@ -1,0 +1,15 @@
+.container {
+    text-align: center; 
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.link {
+    color: #4c4cff;
+    text-decoration: none;
+}
