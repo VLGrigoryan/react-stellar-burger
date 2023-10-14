@@ -12,7 +12,7 @@ const ResetPasswordPage: FC = () => {
     token: "",
     password: "",
   });
-  const [setError] = useState<any | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };

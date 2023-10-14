@@ -118,7 +118,7 @@
 //     });
 // };
 import { getCookie, setCookie } from "./cookie";
-import { TGetOrder } from "../types";
+import { TGetOrder, UserData } from "../types";
 
 const baseUrl = "https://norma.nomoreparties.space/api";
 
@@ -170,7 +170,7 @@ export const getUserApi = () => {
   return request(`/auth/user`, { headers });
 };
 
-export const changeUserApi = (userData: any) => {
+export const changeUserApi = (userData: UserData) => {
   const token = getCookie("token");
   const headers: Record<string, string> = {
     ...defaultHeaders,

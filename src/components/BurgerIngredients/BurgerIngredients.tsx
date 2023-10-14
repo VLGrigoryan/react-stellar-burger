@@ -63,8 +63,9 @@ const BurgerIngredients: FC = () => {
     [data, ingredientTabs, tabNames, handleCardClick]
   );
 
-  const onTabClick = (tab: any) => {
-    setCurrent(tab);
+  const onTabClick: (value: string) => void = (tab) => {
+    setCurrent(tab as keyof TabNames);  
+    
     const ref = document.getElementById(tab);
     if (ref) {
       ref.scrollIntoView({ behavior: "smooth" });

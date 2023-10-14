@@ -8,6 +8,7 @@ import {
 } from "../../utils/api";
 import { deleteCookie, setCookie } from "../../utils/cookie";
 import { UserData, UserState } from "../../types";
+import { TAppDispatch } from "../store";
 
 const initialState: UserState = {
   isAuthCheck: false,
@@ -50,7 +51,7 @@ export const { setUser, setLoading, resetUser } = userSlice.actions;
 
 export const loginUser =
   ({ email, password }: { email: string; password: string }) =>
-  async (dispatch: any) => {
+  async (dispatch: TAppDispatch) => {
     try {
       const res = await logInApi({ email, password });
 
@@ -66,7 +67,7 @@ export const loginUser =
     }
   };
 
-export const logOutUser = () => async (dispatch: any) => {
+export const logOutUser = () => async (dispatch: TAppDispatch) => {
   const res = await logOutApi();
   if (res.success) {
     deleteCookie("token");
@@ -76,7 +77,7 @@ export const logOutUser = () => async (dispatch: any) => {
   return res;
 };
 
-export const fetchUserData = () => (dispatch: any) => {
+export const fetchUserData = () => (dispatch: TAppDispatch) => {
   dispatch(setLoading(true));
   getUserApi()
     .then((res) => {
@@ -102,14 +103,14 @@ export const registerUser =
     password: string;
     name: string;
   }) =>
-  (dispatch: any) => {
+  (dispatch: TAppDispatch) => {
     return registerApi({ email, password, name }).then((res) => {
       dispatch(setUser(res));
       return res;
     });
   };
 
-export const changeUserData = (user: UserData) => (dispatch: any) => {
+export const changeUserData = (user: UserData) => (dispatch: TAppDispatch) => {
   changeUserApi(user)
     .then((res) => {
       if (res.success) {

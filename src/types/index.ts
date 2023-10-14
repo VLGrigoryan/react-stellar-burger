@@ -37,6 +37,8 @@ export type TGetOrder = {
 export interface UserData {
   email: string | null;
   name: string | null;
+  password?: string;
+
 }
 export interface UserState {
   isAuthCheck: boolean;

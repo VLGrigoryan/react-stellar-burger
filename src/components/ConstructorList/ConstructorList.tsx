@@ -17,6 +17,11 @@ interface IConstructorListProp {
   index: number;
 }
 
+interface DragItem {
+  index: number;
+  type: string;
+}
+
 export const ConstructorList: FC<IConstructorListProp> = ({ card, index }) => {
   const dispatch = useDispatch();
   const handleRemoveCard = () => dispatch(removeIngredient(card.uuid));
@@ -25,7 +30,7 @@ export const ConstructorList: FC<IConstructorListProp> = ({ card, index }) => {
 
   const [, dropTarget] = useDrop({
     accept: "constructorList",
-    hover(item: any, monitor) {
+    hover(item: DragItem, monitor) {
       if (!ref.current) {
         return;
       }
@@ -55,10 +60,10 @@ export const ConstructorList: FC<IConstructorListProp> = ({ card, index }) => {
     },
   });
 
-  const [{ isDragging }, dragTarget] = useDrag({
+  const [{ isDragging }, dragTarget] = useDrag<DragItem, void, { isDragging: boolean }>({
     type: "constructorList",
-    item: { index },
-    collect: (monitor: any) => ({
+    item: { index, type: "constructorList" },
+    collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });

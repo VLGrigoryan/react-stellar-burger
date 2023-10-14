@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "../../hooks/reduxHooks";
 
 interface ProtectedRouteProps extends RouteProps {
   onlyUnAuth?: boolean;
-  component: FC<any>;
+  component: React.ComponentType<any>;
   isAuthCheck?: boolean;
 }
 

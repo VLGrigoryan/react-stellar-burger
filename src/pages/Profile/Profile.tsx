@@ -6,7 +6,7 @@ import {
   useHistory,
   useLocation,
 } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../hooks/reduxHooks";
 import {
   changeUserData,
   logOutUser,
@@ -18,15 +18,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PStyle from "./Profile.module.css";
 import FeedList from "../Order/OrderList";
+
 interface User {
   name: string;
   password: string;
   email: string;
 }
-const ProfilePage: FC =()=> {
+const ProfilePage: FC = () => {
   const history = useHistory();
   const location = useLocation();
-  const { data } = useSelector((state: any) => state.user); 
+  const { data } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const password = useRef<HTMLInputElement | null>(null);
   const name = useRef<HTMLInputElement | null>(null);
@@ -68,11 +69,12 @@ const ProfilePage: FC =()=> {
 
   const handleResetChanges = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setUser({
-      name: data.name,
-      password: "",
-      email: data.email,
-    });
+    if (data.name && data.email)
+      setUser({
+        name: data.name,
+        password: "",
+        email: data.email,
+      });
     setIsEditing(false);
     setEditingField(null);
   };
